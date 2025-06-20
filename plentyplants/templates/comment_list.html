@@ -1,0 +1,16 @@
+{% if user.is_authenticated %}
+<form hx-post="{% url 'add_comment' article.pk %}" hx-target="#comments" hx-swap="innerHTML" class="mb-4">
+    {% csrf_token %}
+    <textarea name="content" rows="3" class="w-full p-2 border rounded" placeholder="Add a comment"></textarea>
+    <button type="submit" class="mt-2 px-3 py-1 bg-green-700 text-white rounded">Post</button>
+</form>
+{% endif %}
+<div class="space-y-2">
+    {% for comment in article.comment_set.all %}
+    <div class="bg-gray-100 p-2 rounded">
+        <p class="text-sm text-gray-700">{{ comment.author.username }}: {{ comment.content }}</p>
+    </div>
+    {% empty %}
+    <p>No comments yet.</p>
+    {% endfor %}
+</div>
