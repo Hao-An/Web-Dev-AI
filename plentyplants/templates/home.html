@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="space-y-4">
+    {% for article in articles %}
+    <article class="bg-white p-4 rounded shadow">
+        <h2 class="text-lg font-semibold"><a href="{% url 'article_detail' article.pk %}" class="text-green-800">{{ article.title }}</a></h2>
+        <p class="text-sm text-gray-500">By {{ article.author.username }} on {{ article.created_at|date:'M d, Y' }}</p>
+        <p class="mt-2">{{ article.content|truncatechars:200 }}</p>
+    </article>
+    {% empty %}
+    <p>No articles yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
